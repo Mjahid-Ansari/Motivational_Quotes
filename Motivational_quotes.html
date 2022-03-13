@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes web</title>
+
+   
+
+   <!-- <link rel="stylesheet" href="joks.css">  -->
+<style>
+     body{
+        background-color: blueviolet;
+    }
+
+button{
+    display: inline-block;
+    background-color: red;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    transition: 400ms;
+    text-decoration: none;
+    padding: 10px;
+    z-index: 100000;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+   /* justify-content: center;  */
+    align-items: center;  
+    border: 2px solid black;
+    width: 50vw;
+    height: 60vh;
+    margin-top: 100px;
+    margin-left: 275px;
+    margin-right: 275px;
+    padding: 10px;
+    background-color: chartreuse;
+    border-radius: 25px;
+}
+#author{
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    margin-left: 550px;
+    font-weight: bolder;
+}
+</style>
+
+</head>
+<body>
+
+
+
+
+
+    
+    <div class="container">
+        <h3 style="font-weight: bolder; text-align: center; font-size: 50px; text-decoration: underline;">  Best quotes to make your day </h3>
+        <hr>
+        
+        <div class="joke" id="quota" style="font-style: inherit; font-style: bold ; color: blue; font-size: 30px; " > </div>
+        <br>
+        <div id="author"  style="font-style: italic; " ></div>
+        <br>
+        <button class="btn" id="jokeBtn" style=" border-radius: 5px;">Next quota</button>
+    </div>
+</body>
+
+<script>
+  
+   const quotes = document.getElementById('quota');
+   const author = document.getElementById('author');
+   const jokeBtn = document.getElementById('jokeBtn');
+   let realData = "";
+   let quotaData = "";
+
+
+   const getNew = () => {
+       let rnum = Math.floor(Math.random() * 10);
+       quotaData = realData[rnum]
+       quotes.innerText = `${quotaData.text}`;
+       quotaData == null
+        ? (author.innerText = `${quotaData.author}`)
+        : (author.innerText = `${quotaData.author}`);
+       
+   };
+
+   const genaratQouta = async () => {
+      const api = 'https://type.fit/api/quotes';   
+      try {
+        //   const setHeader = {
+        //       headers  : {
+        //           Accept : "application/Json"
+        //       }
+        //  }
+
+    let data = await fetch (api);
+    realData = await data.json();
+    getNew();
+    //jokes.innerHTML = data.joke;  
+    }catch(err){
+      //  console.log(`the error is ${err}`);
+    };
+
+   }
+
+jokeBtn.addEventListener('click',genaratQouta);
+genaratQouta();   
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>
